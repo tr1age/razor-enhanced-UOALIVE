@@ -1,6 +1,9 @@
 ## Use this on the lockbox at the Public Rune Library
 ## box = Items.FindBySerial(0x40017CE0) update the serial to the box you choose to use
 ## Make sure you are in warmode, this allows you to easily stop the macro by leaving warmode
+## At skill level 80 grid size changes from 3 to 4
+
+gridSize = 3
 
 class actionReturn:
     x = 0
@@ -65,7 +68,7 @@ box = Items.FindBySerial(0x40017CE0)
 
 def getActions(currentLocation, pastLocations, previouslyFailedActions):
     actions = []
-    if (currentLocation.x < 3):
+    if (currentLocation.x < gridSize):
         newLocation = location(currentLocation.x + 1, currentLocation.y)
         ignore = False
         for prevLocation in pastLocations:
@@ -76,7 +79,7 @@ def getActions(currentLocation, pastLocations, previouslyFailedActions):
                 ignore = True
         if ignore == False:
             actions.append(rightAction)
-    if (currentLocation.y < 3):
+    if (currentLocation.y < gridSize):
         newLocation = location(currentLocation.x, currentLocation.y + 1)
         ignore = False
         for prevLocation in pastLocations:
