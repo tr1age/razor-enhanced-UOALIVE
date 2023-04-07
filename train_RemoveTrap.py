@@ -1,7 +1,10 @@
 ## Use this on the lockbox at the Public Rune Library
 ## box = Items.FindBySerial(0x40017CE0) update the serial to the box you choose to use
 ## Make sure you are in warmode, this allows you to easily stop the macro by leaving warmode
-## At skill level 80 grid size changes from 3 to 4
+## At skill level 80 grid size changes from 3 to 4,
+##  at 100 it changes to 5,
+##    if you are using a new box, it will always start with 3 regardless of skill, until you complete it for the first time, at which point it figures out your skill, and adjusts the grid size
+## Not sure how this reacts if someone else is using the same box you are, havent tested whether the instances of the puzzle are shared or unique, so best to find your own box if possible
 
 gridSize = 3
 
@@ -64,7 +67,9 @@ class specificAction:
         self.step = step
         self.action = action
 
-box = Items.FindBySerial(0x40017CE0)
+box = Items.FindBySerial(0x40017C5B)
+
+
 
 def getActions(currentLocation, pastLocations, previouslyFailedActions):
     actions = []
@@ -142,11 +147,13 @@ while Player.WarMode:
 
         while highestPassStep >= currentStep:
             actionToTake = passActions[currentStep]
+            Misc.SendMessage("Repeating Pass action going: " + actionToTake.action.name)
             response = actionToTake.action.fn(currentX, currentY, currentStep)
             currentStep = response.step
             currentX = response.x
             currentY = response.y
             lastAction = specificAction(currentStep, actionToTake)
+            previousLocations.append(location(currentX, currentY))
             
         failedActionsOnThisStep = []
         for previouslyFailedAction in failedActions:
