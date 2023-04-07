@@ -1,5 +1,6 @@
 ## Use this on the lockbox at the Public Rune Library
 ## box = Items.FindBySerial(0x40017CE0) update the serial to the box you choose to use
+## Make sure you are in warmode, this allows you to easily stop the macro by leaving warmode
 
 class actionReturn:
     x = 0
